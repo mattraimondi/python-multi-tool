@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 
-# Multi-Tool Python Version 1.0.0
+# Multi-Tool Python Version 1.0.1
 
 # Calculator Version 2.2.0
 # Colors Version 2.0.0
@@ -14,11 +14,12 @@
 # www.github.com/mattraimondi
 
 # This script is a multiple usage script.
-# You can change it's function using the variable below.
+# You can change it's function using the variable below or by using the changeFunction option built into the script (recommended).
 # The default setting is "calc".
 # Use the "lib" option if importing this script as a library for another script.
-# Options are: "lib", "colors", "calc", "git-status", "volume", "piglatin", "itunes"
+funcOptions = "lib colors calc git-status volume piglatin itunes"
 USAGE = "calc"
+changeFunctionHelpText = f"\nPlease pass the function you would like this script to transform to as arugument 2.\nOptions are: {funcOptions}\n\nIf you keep getting this message but are using the script correctly, try running as root.\nRoot permessions are sometimes needed to edit the file depending on its location.\n\nThe current usage is \"{USAGE}\"\n"
 
 # Importable classes in this file:
 # mcolors
@@ -56,19 +57,19 @@ from fractions import Fraction
 from decimal import Decimal
 from collections import Counter
 
-def changeFunction():
-    print("Please type the function you would like this script to transform to.\nOptions are: lib, colors, calc, git-status, volume, piglatin, itunes\n")
-    selection = input("New Function: ")
+def changeFunction(newFunc):
     with open(__file__, "r+") as k:
         code = k.read()
         targetLineBefore = code.split('\n')[20]
         lines = code.split('\n')
-        lines[20] = f"USAGE = \"{selection}\""
+        lines[20] = f"USAGE = \"{newFunc}\""
         code = '\n'.join(lines)
         k.seek(0)
+        k.truncate(0)
         k.write(code)
         targetLineAfter = code.split('\n')[20]
-    print(f"{targetLineBefore}\n{targetLineAfter}")
+    return f"{targetLineBefore}\n{targetLineAfter}"
+    quit()
 
 
 class operations:
@@ -152,9 +153,15 @@ class mcolors:
                 sys.stdout.write(f"\u001b[48;5;{code}m {code.ljust(4)}")
                 print("\u001b[0m")
 
-if __name__ == "__main__" and len(sys.argv) == 2:
+if __name__ == "__main__" and len(sys.argv) >= 2:
     if sys.argv[1] == "changeFunction":
-        changeFunction()
+        try:
+            print(changeFunction(sys.argv[2]))
+            quit()
+        except Exception as e:
+            print(e)
+            print(changeFunctionHelpText)
+            quit()
 
 if __name__ == "__main__" and USAGE == "calc":
     

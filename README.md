@@ -28,5 +28,14 @@ Lets you control iTunes, to an extent, from within the macOS command line. Works
 Homebrew installation will be available soon.
 
 ```
-brew install mattraimondi/formulae/multi-tool
+$ brew install mattraimondi/formulae/multi-tool
+```
+
+# changeFunction
+This script is a multiple usage script that is controlled by a constant named `USAGE`. This constant can be edited in the script file to change the function of the script. In addition, a more simple way would be to use the `changeFunction` function that is included in the script, which changes the value of the constant. Because this script is able to edit itself in such a way, if the script is located in a root domain such as `bin`, it is necesary to prefix this script with a sudo call to allow the script to edit itself and change the value of `USAGE`. The default value for usage is currently `calc` <br><br>
+An example using this function follows:
+```
+$ python3 multi-tool.py changeFunction lib
+USAGE = "calc"
+USAGE = "lib"
 ```
