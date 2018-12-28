@@ -25,8 +25,6 @@ If you're like me, you keep your git repositories all in one folder. But when wo
 Lets you control iTunes, to an extent, from within the macOS command line. Works for OS X 10.6.8 and higher.
 
 # Installation
-Homebrew installation will be available soon.
-
 ```
 $ brew install mattraimondi/formulae/multi-tool
 ```
