@@ -1,13 +1,13 @@
 #! /usr/bin/env python3
 
-# Multi-Tool Python Version 1.0
+# Multi-Tool Python Version 1.0.0
 
-# Calculator Version 2.2
-# Colors Version 10.0
-# git-status Version 2.4
-# Volume Version 5.0
-# iTunes Version 3.0
-# Piglatin Version 0.2 (Pre-Release)
+# Calculator Version 2.2.0
+# Colors Version 2.0.0
+# git-status Version 2.4.0
+# Volume Version 5.0.0
+# iTunes Version 3.0.0
+# Piglatin Version 1.0.0-alpha.2
 
 # 2019 Matthew Raimondi
 # www.mattraimondi.com
@@ -61,12 +61,14 @@ def changeFunction():
     selection = input("New Function: ")
     with open(__file__, "r+") as k:
         code = k.read()
-        targetLine = code.split('\n')[20]
+        targetLineBefore = code.split('\n')[20]
         lines = code.split('\n')
         lines[20] = f"USAGE = \"{selection}\""
         code = '\n'.join(lines)
         k.seek(0)
         k.write(code)
+        targetLineAfter = code.split('\n')[20]
+    print(f"{targetLineBefore}\n{targetLineAfter}")
 
 
 class operations:
@@ -128,13 +130,13 @@ class mcolors:
         if number >= 0 and number <= 256:
             sys.stdout.write(f"\u001b[38;5;${number}m")
         else:
-            raise Exception("Number must be 0-256")
+            raise Exception("\aNumber must be 0-256")
 
     def printbackcolor(number):
         if number >= 0 and number <= 256:
             sys.stdout.write(f"\u001b[48;5;${number}m")
         else:
-            raise Exception("Number must be 0-256")
+            raise Exception("\aNumber must be 0-256")
 
     def allFG():
         for i in range(0, 16):
@@ -173,7 +175,7 @@ if __name__ == "__main__" and USAGE == "calc":
 
     mmmrahelp = f"\n\nHelp:\n\tThe MMMRA program can calculate the Mean, Meadian, Mode, Range, and Average of a set of numbers.\n\nOptions\n\tmedian\n\tmode\n\trange\n\tmean\n\taverage\n\n\n{mcolors.custpink}By Matthew Raimondi\nwww.github.com/mattraimondi{mcolors.reset}\n"
 
-    calcVersion = f"{mcolors.custpink}Calculator Version 2.2{mcolors.clear}"
+    calcVersion = f"{mcolors.custpink}Calculator Version 2.2.0{mcolors.clear}"
     
     
     if len(sys.argv) == 1:
@@ -465,7 +467,7 @@ if __name__ == "__main__" and USAGE == "volume":
 
     helptext = f"\n{mcolors.skyblue}Volume by Matthew Raimondi\nwww.github.com/mattraimondi\n-----------------------------\nVolume Command Line Interface\n-----------------------------\nUsage: {sys.argv[0]} <option>\n\nOptions:\n\tset # = Set Volume to specified #\n\tup    = Set Volume Up 6.25\n\tdown  = Set Volume Down 6.25\n\tup1   = Set Volume Up 1\n\tdown1 = Set Volume Down 1\n\tget   = Get Volume Settings\n\tmute  = Mute Volume\n\thelp  = Show This Help Text{mcolors.clear}\n"
 
-    versionnum = f"{mcolors.skyblue}5.0{mcolors.clear}"
+    versionnum = f"{mcolors.skyblue}5.0.0{mcolors.clear}"
 
     for arg in sys.argv:
         if arg == "up":
