@@ -26,3 +26,7 @@ Lets you control iTunes, to an extent, from within the macOS command line. Works
 
 # Installation
 Homebrew installation will be available soon.
+
+```
+brew install mattraimondi/formulae/multi-tool
+```
