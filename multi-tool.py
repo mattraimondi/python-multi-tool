@@ -67,7 +67,6 @@ def changeFunction():
         code = '\n'.join(lines)
         k.seek(0)
         k.write(code)
-    print(targetLine)
 
 
 class operations:
