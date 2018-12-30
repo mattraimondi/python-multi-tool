@@ -38,11 +38,11 @@ USAGE = "calc"
 USAGE = "lib"
 ```
 
-# Cryptograpy
-Python cryptography library by <a href="https://github.com/Fitzgibbons">@Fitzgibbons</a>
+# Cryptography
+Python cryptography library by <a href="https://github.com/Fitzgibbons" target="_blank">@Fitzgibbons</a>
 
 ## RSA
-RSA is a public key cryptosystem which can be used to communicate data securely and authenticate identity. The RSA file included is capable of generating valid RSA keys and moduli, encrypting data using these keys, and finally decrypting.  
+RSA is a public key cryptosystem which can be used to communicate data securely and authenticate identity. The RSA file included is capable of generating valid RSA keys and moduli, encrypting data using these keys, and finally decrypting.<br>
 Note: This is the only class in this file that does not follow the specification exactly. The only modification is adding  7 bits instead of 8 just before encryption. This ensures that the key is never too small to encrypt the masked data.
 
 ## MGF1
