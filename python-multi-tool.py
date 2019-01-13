@@ -1,13 +1,17 @@
 #! /usr/bin/env python3
 
-# Multi-Tool Python Version 1.0.2
+# Multi-Tool Python Version 1.0.3
 
 # Calculator Version 2.2.0
 # Colors Version 2.0.0
 # git-status Version 2.4.0
 # Volume Version 5.0.0
 # iTunes Version 3.0.0
-# Piglatin Version 1.0.0-alpha.2
+# Piglatin Version 1.0.0
+
+# Version Variables
+calcVersion = "2.2.0"
+volumeVersion = "5.0.0"
 
 # 2019 Matthew Raimondi
 # www.mattraimondi.com
@@ -17,21 +21,22 @@
 # You can change it's function using the variable below or by using the changeFunction option built into the script (recommended).
 # The default setting is "calc".
 # Use the "lib" option if importing this script as a library for another script.
+
 funcOptions = "lib colors calc git-status volume piglatin itunes"
 USAGE = "calc"
-usageLine = 20
+usageLine = 26 - 1 # line number is shifted down one, because index starts at 0
 changeFunctionHelpText = f"\nPlease pass the function you would like this script to transform to as arugument 2.\nOptions are: {funcOptions}\n\nIf you keep getting this message but are using the script correctly, try running as root.\nRoot permessions are sometimes needed to edit the file depending on its location.\n\nThe current usage is \"{USAGE}\"\n"
 
 # Importable classes in this file:
-# mcolors
-# operations
-# cryptography.SHA
-# cryptography.AES
-# cryptography.MGF
-# cryptography.HMAC
-# cryptography.RSA
-# cryptography.rabinmiller
-# cryptography.userRandom
+#   mcolors
+#   operations
+#   cryptography.SHA
+#   cryptography.AES
+#   cryptography.MGF
+#   cryptography.HMAC
+#   cryptography.RSA
+#   cryptography.rabinmiller
+#   cryptography.userRandom
 
 # MIT License
 #
@@ -59,6 +64,7 @@ import sys
 import subprocess
 import os
 import glob
+import re
 
 from fractions import Fraction
 from decimal import Decimal
@@ -103,7 +109,7 @@ class operations:
         return max(lst, key=data.get)
 
 class mcolors:
-    
+
     red = "\u001b[38;5;$1m"
     orange = "\u001b[38;5;$208m"
     yellow = "\u001b[38;5;$11m"
@@ -115,7 +121,7 @@ class mcolors:
     brown = "\u001b[38;5;$130m"
     white = "\u001b[38;5;$231m"
     black = "\u001b[38;5;$0m"
-    
+
     redback = "\u001b[48;5;$1m"
     orangeback = "\u001b[48;5;$208m"
     yellowback = "\u001b[48;5;$11m"
@@ -127,17 +133,17 @@ class mcolors:
     brownback = "\u001b[48;5;$130m"
     whiteback = "\u001b[48;5;$231m"
     blackback = "\u001b[48;5;$0m"
-    
+
     reset = "\033[0m"
     clear = "\033[0m"
-    
+
     custpink = "\u001b[38;5;$205m"
     skyblue = "\u001b[38;5;$39m"
-    
+
     gpink = "\033[35m"
     ggreen = "\033[92m"
     gred = "\033[91m"
-    
+
     def printcolor(number):
         if number >= 0 and number <= 256:
             sys.stdout.write(f"\u001b[38;5;${number}m")
@@ -186,7 +192,7 @@ class cryptography:
     # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     # SOFTWARE.
-    
+
     class SHA:
         #Secure Hash Algorithm 2
         try:
@@ -808,8 +814,6 @@ if __name__ == "__main__" and USAGE == "calc":
     gpahelp = f"\n\nHelp:\n\tThe GPA program can calculate your GPA.\n\n\t*For AP classes, when asked for your letter grade, you should add AP to the end of the grade.\n\tExample: A+ -> A+AP\n\t\t A -> AAP\n\t\t A- -> A-AP\n\n\n{mcolors.custpink}By Matthew Raimondi\nwww.github.com/mattraimondi{mcolors.reset}\n"
 
     mmmrahelp = f"\n\nHelp:\n\tThe MMMRA program can calculate the Mean, Meadian, Mode, Range, and Average of a set of numbers.\n\nOptions\n\tmedian\n\tmode\n\trange\n\tmean\n\taverage\n\n\n{mcolors.custpink}By Matthew Raimondi\nwww.github.com/mattraimondi{mcolors.reset}\n"
-
-    calcVersion = f"{mcolors.custpink}Calculator Version 2.2.0{mcolors.clear}"
     
     if len(sys.argv) == 1:
         print(helper)
@@ -1001,23 +1005,23 @@ if __name__ == "__main__" and USAGE == "calc":
 
 
 if __name__ == "__main__" and USAGE == "colors":
-    
+
     colorfile = ""
     alist = ""
-    
+
     colorsHelpText = f"{mcolors.reset}{mcolors.custpink}\tScript by Matthew Raimondi\n\twww.github.com/mattraimondi{mcolors.reset}\n\n\tChoose one of the following colors or\n\tspecify a number value from the chart included:\n\n\t\t{mcolors.red}Red {mcolors.orange}Orange {mcolors.yellow}Yellow {mcolors.green}Green {mcolors.blue}Blue {mcolors.indigo}Indigo {mcolors.violet}Violet\n\t\t{mcolors.pink}Pink {mcolors.brown}Brown {mcolors.white}White {mcolors.black}{mcolors.whiteback}Black{mcolors.reset}\n\n\tand then (if you want) set a backgroung using\n\tthe following colors or a number value from the preveious chart:\n\n\t\t{mcolors.white}{mcolors.redback}Redback {mcolors.orangeback}Orangeback {mcolors.yellowback}Yellowback {mcolors.greenback}Greenback {mcolors.blueback}Blueback {mcolors.indigoback}Indigoback{mcolors.reset}\n\t\t{mcolors.white}{mcolors.violetback}Violetback {mcolors.pinkback}Pinkback {mcolors.brownback}Brownback {mcolors.whiteback}{mcolors.black}Whiteback {mcolors.reset}{mcolors.blackback}{mcolors.white}Blackback{mcolors.reset}\n\n\tTo clear colors type 'Reset' instead of a color or number.\n\n\tFor a list of color numbers, use the arguments 'all' and 'allbg'\n\t\tfor text and backround colors respectively.\n\n\tExample: {os.path.basename(__file__)} orange whiteback"
-    
+
     if len(sys.argv) == 2:
         colorfile = (sys.argv[1])
         alist = colorfile.split(",")
-    
+
     elif len(sys.argv) == 3:
         colorfile = (f"{sys.argv[1]},{sys.argv[2]}")
         alist = colorfile.split(",")
-    
+
     elif len(sys.argv) == 1 or len(sys.argv) > 3:
         print(colorsHelpText)
-    
+
     if len(sys.argv) >= 2:
         if "red" in alist:
             sys.stdout.write(mcolors.red)
@@ -1100,8 +1104,6 @@ if __name__ == "__main__" and USAGE == "volume":
 
     helptext = f"\n{mcolors.skyblue}Volume by Matthew Raimondi\nwww.github.com/mattraimondi\n-----------------------------\nVolume Command Line Interface\n-----------------------------\nUsage: {os.path.basename(__file__)} <option>\n\nOptions:\n\tset # = Set Volume to specified #\n\tup    = Set Volume Up 6.25\n\tdown  = Set Volume Down 6.25\n\tup1   = Set Volume Up 1\n\tdown1 = Set Volume Down 1\n\tget   = Get Volume Settings\n\tmute  = Mute Volume\n\thelp  = Show This Help Text{mcolors.clear}\n"
 
-    versionnum = f"{mcolors.skyblue}5.0.0{mcolors.clear}"
-
     for arg in sys.argv:
         if arg == "up":
             print(f"{mcolors.skyblue}Changing Volume Level{mcolors.clear}")
@@ -1129,68 +1131,77 @@ if __name__ == "__main__" and USAGE == "volume":
         elif arg == "-h":
             print(helptext)
         elif arg == "-v":
-            print(versionnum)
+            print(volumeVersion)
         elif len(sys.argv) == 1:
             print(helptext)
 
 if __name__ == "__main__" and USAGE == "piglatin":
 
-    newlist = []
+    ending = "ay"
+    vowels = ["a","e","i","o","u"]
+    halfVowel = "y"
 
     def helper():
         print(f"\n\nHelp:\n\tUsage: {os.path.basename(__file__)} <option>\n\nOptions:\n\tengpig: translate from english to piglatin\n\tpigeng: translate from piglatin to english\n\n\n\u001b[38;5;$205mBy Matthew Raimondi\nwww.github.com/mattraimondi\033[0m\n")
         quit()
 
     def engpig(*args):
-        try:
-            alist = list(args)
-            
-            for word in alist:
-                firstletter = word[0]
-                secondletter = word[1]
-                thirdletter = word[2]
-                if firstletter.lower() in "aeiou":
-                    pigword = word + "ay"
-                    newlist.append(pigword)
-                elif firstletter.lower() == "c" and secondletter.lower() == "e" or secondletter.lower() == "i":
-                    pigword = word[1:] + "say"
-                    newlist.append(pigword)
-                elif firstletter.lower() == "g" and secondletter.lower() == "e" or secondletter.lower() == "i":
-                    pigword = word[1:] + "jay"
-                    newlist.append(pigword)
-                elif firstletter.lower() not in "aeiou" and secondletter.lower() not in "aeiou" and thirdletter.lower() not in "aeiou":
-                    pigword = word[3:] + firstletter + secondletter + thirdletter + "ay"
-                    newlist.append(pigword)
-                elif firstletter.lower() not in "aeiou" and secondletter.lower() not in "aeiou":
-                    pigword = word[2:] + firstletter + secondletter + "ay"
-                    newlist.append(pigword)
+        alist = list(args)
+
+        for word in alist:
+            for letter in word:
+                if letter not in vowels:
+                    word = word[1:] + letter
                 else:
-                    pigword = word[1:] + firstletter + "ay"
-                    newlist.append(pigword)
-            return newlist
-        except:
-            helper()
+                    word = word + ending
+                    break
+        
+            return word
+    
+        quit()
 
     def pigeng(*args):
-        pass
+        alist = list(args)
+        
+        for word in alist:
+            word = word.strip(ending)[::-1]
+            for letter in word:
+                if letter not in vowels:
+                    word = word[1:] + letter
+                else:
+                    word = word[::-1]
+                    break
+            
+            return word
+        
+        quit()
 
     if len(sys.argv) == 2:
         if sys.argv[1] == "engpig":
             sentence = input("Sentence: ").lower()
             sentlist = sentence.split(" ")
-            while len(newlist) < len(sentlist):
-                engpig(sentence)
-            newstr = " ".join(newlist)
-            print(newstr)
+            pigwords = []
+            for object in sentlist:
+                pigword = engpig(object)
+                pigwords.append(pigword)
+            pigsentence = " ".join(pigwords)
+            print(pigsentence)
         elif sys.argv[1] == "pigeng":
-            print("Awaiting build")
+            sentence = input("Sentence: ").lower()
+            sentlist = sentence.split(" ")
+            pigwords = []
+            for object in sentlist:
+                pigword = pigeng(object)
+                pigwords.append(pigword)
+            pigsentence = " ".join(pigwords)
+            print(pigsentence)
         else:
             helper()
     else:
         helper()
 
 if __name__ == "__main__" and USAGE == "itunes":
-    
+
     volumeHelp = f"\n{mcolors.custpink}iTunes-CLI by Matthew Raimondi\nwww.github.com/mattraimondi\n-----------------------------\niTunes Command Line Interface\n-----------------------------\nUsage {os.path.basename(__file__)} <option>\n\nOptions:\n\tstatus   = Shows iTunes' status, current artist and track.\n\tplay     = Start playing iTunes.\n\tpause    = Pause iTunes.\n\tnext     = Go to the next track.\n\tprev     = Go to the previous track.\n\tmute     = Mute iTunes' volume.\n\tunmute   = Unmute iTunes' volume.\n\tvol up   = Increase iTunes' volume by 10%\n\tvol down = Increase iTunes' volume by 10%\n\tvol #    = Set iTunes' volume to # [0-100]\n\tstop     = Stop iTunes.\n\tquit     = Quit iTunes.{mcolors.reset}\n"
 
     for arg in sys.argv:
@@ -1257,7 +1268,7 @@ if __name__ == "__main__" and USAGE == "blink1-matt":
     myblink.close()
 
 if __name__ == "__main__" and USAGE == "matt3":
-    
+
     letnum = {'a':805,'b':945,'c':852,'d':268,'e':674,'f':491,'g':520,'h':982,'i':256,'j':863,'k':593,'l':987,'m':764,'n':763,'o':392,'p':483,'q':238,'r':999,'s':493,'t':762,'u':193,'v':260,'w':100,'x':199,'y':872,'z':539,'.':111,'\n':222,' ':333,'\t':444,':':555,'/':666,'\\':777,'!':888,'?':123,'#':234,'=':345,'+':456,'-':567,'_':678,'(':789,')':890,'[':112,']':113,'%':114,'$':115,'@':116,'\'':117,'"':118,';':119,'<':120,'>':121,'{':122,'}':124,'*':125,',':126,'&':127,'^':128,'|':129,'`':130,'~':131,'1':926,'2':876,'3':765,'4':654,'5':543,'6':432,'7':321,'8':246,'9':135,'0':909}
     numlet = {'805':'a','945':'b','852':'c','268':'d','674':'e','491':'f','520':'g','982':'h','256':'i','863':'j','593':'k','987':'l','764':'m','763':'n','392':'o','483':'p','238':'q','999':'r','493':'s','762':'t','193':'u','260':'v','100':'w','199':'x','872':'y','539':'z','111':'.','222':'\n','333':' ','444':'\t','555':':','666':'/','777':'\\','888':'!','123':'?','234':'#','345':'=','456':'+','567':'-','678':'_','789':'(','890':')','112':'[','113':']','114':'%','115':'$','116':'@','117':'\'','118':'"','119':';','120':'<','121':'>','122':'{','124':'}','125':'*','126':',','127':'&','128':'^','129':'|','130':'`','131':'~','926':'1','876':'2','765':'3','654':'4','543':'5','432':'6','321':'7','246':'8','135':'9','909':'0'}
     def encrypt():
@@ -1359,7 +1370,7 @@ if __name__ == "__main__" and USAGE == "matt1":
             for number in messlist:
                 d.write(str(numlet[number]))
     def helper():
-        print("\n\nHelp:\n\tUsage: " + os.path.basename(__file__) + " <option> <filename>\n\nOptions:\n\tencrypt: encrypt message\n\tdecrypt: decrypt message\n\n\n\u001b[38;5;$205mBy Matthew Raimondi\nwww.github.com/mattraimondi\033[0m\n")
+        print(f"\n\nHelp:\n\tUsage: {os.path.basename(__file__)} <option> <filename>\n\nOptions:\n\tencrypt: encrypt message\n\tdecrypt: decrypt message\n\n\n\u001b[38;5;$205mBy Matthew Raimondi\nwww.github.com/mattraimondi\033[0m\n")
         quit()
     if len(sys.argv) == 3:
         if sys.argv[1] == "encrypt":
