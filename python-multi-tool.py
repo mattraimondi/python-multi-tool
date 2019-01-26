@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 
-# Multi-Tool Python Version 1.0.3
+# Multi-Tool Python Version 1.1.0
 
 # Calculator Version 2.2.0
 # Colors Version 2.0.0
@@ -8,6 +8,8 @@
 # Volume Version 5.0.0
 # iTunes Version 3.0.0
 # Piglatin Version 1.0.0
+# OSXTerm Version 1.0.0
+# Special-Garbanzo Version 1.0.0
 
 # Version Variables
 calcVersion = "2.2.0"
@@ -22,9 +24,9 @@ volumeVersion = "5.0.0"
 # The default setting is "calc".
 # Use the "lib" option if importing this script as a library for another script.
 
-funcOptions = "lib colors calc git-status volume piglatin itunes"
+funcOptions = "lib colors calc git-status volume piglatin itunes osxterm special-garbanzo"
 USAGE = "calc"
-usageLine = 26 - 1 # line number is shifted down one, because index starts at 0
+usageLine = 28 - 1 # line number is shifted down one, because indices start at 0
 changeFunctionHelpText = f"\nPlease pass the function you would like this script to transform to as arugument 2.\nOptions are: {funcOptions}\n\nIf you keep getting this message but are using the script correctly, try running as root.\nRoot permessions are sometimes needed to edit the file depending on its location.\n\nThe current usage is \"{USAGE}\"\n"
 
 # Importable classes in this file:
@@ -1399,3 +1401,57 @@ if __name__ == "__main__" and USAGE == "getappleid":
     password = subprocess.check_call("osascript -e 'tell application \"Siri\" to set passcode to display dialog \"Please enter your Apple ID password\" default answer \"\" with icon stop buttons {\"Cancel\", \"Continue\"} default button \"Continue\" with hidden answer' ", shell=True)
 
     print(password)
+
+if __name__ == "__main__" and USAGE == "osxterm":
+    termHelp = f"Using this program, (assuming you are using macOS) you can change the theme that terminal.app uses.\n*This does not work for iTerm 2 or the like*\nThe program should be run as follows, including the quotes:\n\n\t{os.path.basename(__file__)} \"homebrew\"\n"
+    
+    if len(sys.argv) >= 2:
+        subprocess.run(f"osascript -e 'tell application \"Terminal\" to set current settings of first window to first settings set whose name is \"{sys.argv[1]}\"'", shell=True)
+    else:
+        print(termHelp)
+
+if __name__ == "__main__" and USAGE == "special-garbanzo":
+    garbanzoHelp = "Adapted from mattraimondi/special-garbanzo\n\nPlease use this set of programs on OS X, because the implementations are very AppleScript heavy.\n\nThis is a set of \"random\" scripts that I have compiled into this multi-tool.\nFor instructions, read the README.md file located at the python-multi-tool GitHub page.\n\n\thttps://github.com/mattraimondi/python-multi-tool\n\nThis section of the tool has potentially dangerous functions, so please read the README to understand how each function works."
+
+    if len(sys.argv) >= 2:
+        if sys.argv[1] == "space":
+            print("\n\n\n")
+        elif sys.argv[1] == "lstrash":
+            for arg in sys.argv:
+                if arg == ("empty"):
+                    perm = input("Are you sure you want to empty/delete the trash(s)? Y/n: ")
+                    if perm.lower() == "y":
+                        subprocess.run("sudo rm -rf '~/library/Mobile Documents/com~apple~CloudDocs/.trash/'", shell=True)
+                        subprocess.run("rm -rf ~/.Trash/", shell=True)
+                    else:
+                        quit()
+            else:
+                print("iCloud\n")
+                subprocess.run("ls ~/library/Mobile\ Documents/com~apple~CloudDocs/.trash/", shell=True)
+                print("\n\nLocal\n")
+                subprocess.run("ls ~/.Trash", shell=True)
+        elif sys.argv[1] == "dockspace":
+            subprocess.run("defaults write com.apple.dock persistent-apps -array-add '{\"tile-type\"=\"spacer-tile\";}'; killall Dock", shell=True)
+        elif sys.argv[1] == "weather":
+            if len(sys.argv) == 3:
+                subprocess.run("curl 'wttr.in/'" + sys.argv[2], shell=True)
+            else:
+                subprocess.run("curl 'wttr.in/'", shell=True)
+        elif sys.argv[1] == "ip":
+            subprocess.run("ipconfig getifaddr en0", shell=True)
+            subprocess.run("curl http://icanhazip.com", shell=True)
+        elif sys.argv[1] == "airportinstall":
+            subprocess.run("ln -s /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Cur /usr/local/bin/airport", shell=True)
+        elif sys.argv[1] == "brewinstall":
+            perm = input("Running this command is possibly dangerous if you already have homebrew installed. To check this, try running 'brew' from the command line. Would you like to continue? Y/n:")
+            if perm.lower() == "y":
+                subprocess.run("/usr/bin/ruby -e \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)\"", shell=True)
+            else:
+                 quit()
+        elif sys.argv[1] == "quit":
+            appname = input("Name of Application: ")
+            subprocess.run(f"osascript -e 'tell application \"{appname}\" to quit'", shell=True)
+        else:
+            print(garbanzoHelp)
+    else:
+        print(garbanzoHelp)

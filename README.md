@@ -11,21 +11,30 @@ Includes a program which can translate celcius to fahrenheit and vice versa.<br>
 Includes a program that can calculate your current GPA, which can be very useful.<br>
 Includes a program that can find the Mean, Median, Mode, Range, or Average of a set of numbers.
 
-## colors
+## Colors
 A python color module for creating colored text on the command line.<br>
 This library can also be run as an interactive script for changing the color of text on command line interfaces in which colored output is uncommon. (Such as old computers or ones with less capable command line interfaces.)
 
 ## Volume
-Lets you change the volume from within the macOS command line. Works for OS X 10.6.8 and higher.
+Lets you change the volume from within the macOS command line. Works for OS X 10.7.5 and higher.
 
 ## git-status
 If you're like me, you keep your git repositories all in one folder. But when working on multiple repositories, it can become hard to remember where you left off in each one. By navigating to said folder, invoking this command will list all of your repos in the folder, and their status. **This program does not check for unpushed commits.**
 
 ## iTunes-CLI
-Lets you control iTunes, to an extent, from within the macOS command line. Works for OS X 10.6.8 and higher.
+Lets you control iTunes, to an extent, from within the macOS command line. Works for OS X 10.7.5 and higher.
 
-## piglatin
+## Piglatin
 Now you can translate between English and pig latin using this tool. **Words containing Y as the first vowel are currently not translated to preserve integrity of the message. Words containing Y as the first consonant are unaffected.
+
+## OSXterm
+Using this program, (assuming you are using macOS) you can change the theme that terminal.app uses.
+*This does not work for iTerm 2 or the like*
+The program should be run as follows, including the quotes:
+
+python-multi-tool.py "homebrew"
+
+
 
 # Installation
 ```
@@ -63,3 +72,43 @@ The Advanced Encryption Standard is a widely used block cipher that comes in thr
 
 ## RNG
 For deterministically random numbers, use the random.SystemRandom() class with a seed upon instantiation. For non-deterministically random numbers, instantiate the same class without a seed. This will utilize the os.urandom() function, which is the most random function provided by a given operating system and is considered cryptographically secure. Once instantiated, randrange, randint, random, and other functions from the random module can be called in a cryptographically secure manner.
+
+# Special-Garbanzo
+An assortment of useful custom commands for macOS command line.<br>
+Adapted from mattraimondi/special-garbanzo
+
+## ip
+ip simply lists your local ip address and your external ip address
+
+## quit
+quit quits applications for you. Just run the program, type in the application's name, and then using applescript, quit will quit the app.
+
+## lstrash
+lstrash gives you the contents of
+`~/library/Mobile Documents/com~apple~CloudDocs/.trash` and `~/.trash`
+
+Typing 'lstrash empty' empties both of those locations (deletes all files in those locations, including the actual folders themselves).
+
+**WARNING!** This process is **not** undoable, so type `lstrash empty` unless you're sure!
+
+**I am not liable for any information lost due to this function. Use at your own risk.**
+
+## weather
+Just type "weather" and the location, plus any clarifiers (ex. austin+tx), to get the weather from wttr.in.
+
+## space
+The space command prints 3 new lines to help seperate data and such. Useless, yet useful.
+
+## dockspace
+dockspace creates a transparent space on your dock for organization.
+
+## brewinstall
+This installes homebrew on the system. **Do not execute this function if you already have homebrew installed!** If you install this script using homebrew, then this function is useless to you. This function is only useful on systems where homebrew is not installed, but the user does not want to go "www.brew.sh" to install it.
+
+## airportinstall
+Creates a symbolic link of the Airport utility in `/usr/local/bin` so that you can easily execute it from the command line. The symbolic link will be called `airport` and can be invoked at the command line like so:
+```
+$ airport -s 
+SSID    BSSID             RSSI CHANNEL HT CC SECURITY (auth/unicast/group)
+Network 98:fc:11:fd:ba:24 -89  2       Y  -- WPA2(PSK/AES/AES)
+```
