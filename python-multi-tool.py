@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 
-# Multi-Tool Python Version 1.1.0
+# Multi-Tool Python Version 1.1.1
 
 # Calculator Version 2.2.0
 # Colors Version 2.0.0
@@ -803,7 +803,7 @@ if __name__ == "__main__" and USAGE == "calc":
     
     helper = f"\n\tUsage: {os.path.basename(__file__)} <option>\n\n\tOptions:\n\tbasic\n\tfracdec\n\tfibonacci\n\tinfibonacci\n\tisfibonacci\n\ttemp\n\tgpa\n\tmmmra\n\n\t\u001b[38;5;$208mCalculator Suite by Matthew Raimondi\n\t\u001b[38;5;$39mwww.github.com/mattraimondi{mcolors.reset}\n"
 
-    basichelp = f"\n\tUsage: {os.path.basename(__file__)} calc <n> <operation> <n>\n\n\tOperations:\n\t+  for addition\n\t-  for subtraction\n\tx  for multiplication\n\t/  for division\n\txx for power\n\t-x for root\n\n\t\u001b[38;5;$208mCalculator by Matthew Raimondi\n\t\u001b[38;5;$39mwww.github.com/mattraimondi{mcolors.reset}\n"
+    basichelp = f"\n\tUsage: {os.path.basename(__file__)} basic <n> <operation> <n>\n\n\tOperations:\n\t+  for addition\n\t-  for subtraction\n\tx  for multiplication\n\t/  for division\n\txx for power\n\t-x for root\n\n\t\u001b[38;5;$208mCalculator by Matthew Raimondi\n\t\u001b[38;5;$39mwww.github.com/mattraimondi{mcolors.reset}\n"
 
     fracdechelp = f"\n\tUsage: {os.path.basename(__file__)} fracdec <n> <operation> <n>\n\n\tOperations:\n\t. for decimal into fraction (in which case, don\'t put a third number)\n\t/ for fraction into decimal\n\n\t\u001b[38;5;$208mFraction / Decimal Converter by Matthew Raimondi\n\t\u001b[38;5;$39mwww.github.com/mattraimondi{mcolors.reset}\n"
 
