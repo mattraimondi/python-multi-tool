@@ -1421,7 +1421,7 @@ if __name__ == "__main__" and USAGE == "special-garbanzo":
                 if arg == ("empty"):
                     perm = input("Are you sure you want to empty/delete the trash(s)? Y/n: ")
                     if perm.lower() == "y":
-                        subprocess.run("sudo rm -rf '~/library/Mobile Documents/com~apple~CloudDocs/.trash/'", shell=True)
+                        subprocess.run("sudo rm -rf ~/library/Mobile\ Documents/com~apple~CloudDocs/.trash/", shell=True)
                         subprocess.run("rm -rf ~/.Trash/", shell=True)
                     else:
                         quit()
@@ -1455,3 +1455,67 @@ if __name__ == "__main__" and USAGE == "special-garbanzo":
             print(garbanzoHelp)
     else:
         print(garbanzoHelp)
+        
+if __name__ == "__main__" and USAGE == "jpy":
+    argument = 1
+    optioncount = 0
+    options = []
+    try:
+        while sys.argv[argument][0] == "-":
+            for i in range(len(sys.argv[argument]) - 1):
+                options += sys.argv[argument][i + 1]
+            optioncount += 1
+            argument += 1
+    except Exception:
+        options += "h"
+    for i,e in enumerate(options):
+        if not (e in ["v","d","c","V","i"]):
+            if e != "h":
+                print("Invalid flag: " + e + "\n\n")
+            print("Usage: j [-options] file [args...]\
+            \n\t-c\tDon't display compile messages in red (colors only change in python3)\
+            \n\t-d\tDon't delete class file\
+            \n\t-h\tPrint this help message\
+            \n\t-i\tRun with verbose output\
+            \n\t-v\tRun with verbose javac output\
+            \n\t-V\tRun with verbose java output")
+            exit()
+    if "i" in options:
+        print("[Compiling " + sys.argv[1 + optioncount] + "]")
+    if not ("c" in options):
+        if sys.version_info > (3,0):
+            print("\u001b[31m\033[F")
+    if "v" in options:
+        os.system("javac -verbose " + sys.argv[1 + optioncount])
+    else:
+        os.system("javac " + sys.argv[1 + optioncount])
+    if not ("c" in options):
+        if sys.version_info > (3,0):
+            print("\u001b[0m\033[F")
+    args = ""
+    for i in range(len(sys.argv) - (2 + optioncount)):
+        args += " " + sys.argv[i + 2 + optioncount]
+    dirname = "bin"
+    adjustment = 0
+    while os.path.isdir(dirname):
+        dirname = "bin" + str(adjustment)
+        adjustment += 1
+    os.system("mkdir " + dirname)
+    files = [f for f in os.listdir() if os.path.isfile(f) and f[len(f) - 6:] == ".class"]
+    for i in files:
+        os.system("mv " + i + " " + dirname)
+    os.chdir(dirname)
+    if "i" in options:
+        print("[" + sys.argv[1 + optioncount] + " compiled successfully]")
+        print("[Running " + sys.argv[1 + optioncount][:-5] + ".class]")
+    if "V" in options:
+        os.system("java -verbose " + sys.argv[1 + optioncount][:-5] + args)
+    else:
+        os.system("java " + sys.argv[1 + optioncount][:-5] + args)
+    if "i" in options:
+        print("[" + sys.argv[1 + optioncount][:-5] + ".class exited successfully]")
+    if not ("d" in options):
+        if "i" in options:
+            print("[Deleting class files]")
+        os.chdir("..")
+        os.system("rm -rf " + dirname)

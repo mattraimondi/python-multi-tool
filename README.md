@@ -51,7 +51,7 @@ USAGE = "lib"
 ```
 
 # Cryptography
-Python cryptography library by <a href="https://github.com/Fitzgibbons" target="_blank">@Fitzgibbons</a>
+Python cryptography library by @Fitzgibbons
 
 ## RSA
 RSA is a public key cryptosystem which can be used to communicate data securely and authenticate identity. The RSA file included is capable of generating valid RSA keys and moduli, encrypting data using these keys, and finally decrypting.<br>
