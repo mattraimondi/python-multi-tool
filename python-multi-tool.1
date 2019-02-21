@@ -1,0 +1,122 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "PYTHON-MULTI-TOOL" "1" "February 2019" "mattraimondi.com" "python-multi-tool"
+A multiple\-usage script that combines most of my public python tools into an easy to manage, easy to use solution\.
+.
+.P
+\fIThis "multi\-tool" should be used with python3\.\fR
+.
+.SH "Installation"
+.
+.nf
+
+$ brew install mattraimondi/formulae/python\-multi\-tool
+.
+.fi
+.
+.SH "changeFunction"
+This script is a multiple usage script that is controlled by a constant named \fBUSAGE\fR\. This constant can be edited in the script file to change the function of the script\. In addition, a more simple way would be to use the \fBchangeFunction\fR function that is included in the script, which changes the value of the constant\. Because this script is able to edit itself in such a way, if the script is located in a root domain such as \fB/bin\fR, it is necesary to prefix this script with a sudo call to allow the script to edit itself and change the value of \fBUSAGE\fR\. The default value for usage is currently \fBcalc\fR
+.
+.P
+An example using this function follows: \fB$ python3 multi\-tool\.py changeFunction lib USAGE = "calc" USAGE = "lib"\fR
+.
+.SS "Calculator"
+.
+.IP "\(bu" 4
+A simple calculator written in Python\.
+.
+.IP "\(bu" 4
+Includes a program to convert between fractions and decimals\.
+.
+.IP "\(bu" 4
+Includes a program that finds the fibonacci value to the nth number (without recursion) and a program that prints the fibonacci sequence infinetly until stopped\. Additionally, there is a program which checks to see if a number n is a number in the fibonacci sequence using the property of ((5 * (n * n)) +\- 4)=perfect_square\.
+.
+.IP "\(bu" 4
+Includes a program which can translate celcius to fahrenheit and vice versa\.
+.
+.IP "\(bu" 4
+Includes a program that can calculate your current GPA, which can be very useful\.
+.
+.IP "\(bu" 4
+Includes a program that can find the Mean, Median, Mode, Range, or Average of a set of numbers\.
+.
+.IP "" 0
+.
+.SS "Colors"
+A python color module for creating colored text on the command line\. This library can also be run as an interactive script for changing the color of text on command line interfaces in which colored output is uncommon\. (Such as old computers or ones with less capable command line interfaces\.)
+.
+.SS "Volume"
+Lets you change the volume from within the macOS command line\. Works for OS X 10\.7\.5 and higher\.
+.
+.SS "git\-status"
+If you\'re like me, you keep your git repositories all in one folder\. But when working on multiple repositories, it can become hard to remember where you left off in each one\. By navigating to said folder, invoking this command will list all of your repos in the folder, and their status\. \fBThis program does not check for unpushed commits\.\fR
+.
+.SS "iTunes\-CLI"
+Lets you control iTunes, to an extent, from within the macOS command line\. Works for OS X 10\.7\.5 and higher\.
+.
+.SS "Piglatin"
+Now you can translate between English and pig latin using this tool\. \fBWords containing Y as the first vowel are currently not translated to preserve integrity of the message\. Words containing Y as the first consonant are unaffected\.\fR
+.
+.SS "OSXterm"
+Using this program, (assuming you are using macOS) you can change the theme that terminal\.app uses\. \fIThis does not work for iTerm 2 or the like\fR
+.
+.P
+The program should be run as follows: \fBpython\-multi\-tool\.py "homebrew"\fR
+.
+.SH "Cryptography"
+Python cryptography library by @Fitzgibbons
+.
+.SS "RSA"
+RSA is a public key cryptosystem which can be used to communicate data securely and authenticate identity\. The RSA file included is capable of generating valid RSA keys and moduli, encrypting data using these keys, and finally decrypting\. \fBNote: This is the only class in this file that does not follow the specification exactly\. The only modification is adding 7 bits instead of 8 just before encryption\. This ensures that the key is never too small to encrypt the masked data\.\fR
+.
+.SS "MGF1"
+This mask function utilizes SHA 256 to take in a seed and produce a mask of a given length\. This is included here mostly for the RSA algorithm, which requires it for encryption\.
+.
+.SS "SHA"
+SHA2 (Secure Hash Algorithm) is a family cryptographic hash functions, which turn data into irreversible hashes, or seemingly random series of bits\. Included are SHA\-224, SHA\-256, SHA\-384, and SHA\-512\. SHA1 is also included in this library because despite being broken in practice, it has many other less cryptographic uses\.
+.
+.SS "HMAC"
+HMAC, or Key Hashed Message Authentication Code, can be used to authenticate message integrity and authenticity at the same time\. Requires a key, message, and the length of the message block\.
+.
+.SS "AES"
+The Advanced Encryption Standard is a widely used block cipher that comes in three forms, with key lengths of 128, 192, 256\.
+.
+.SS "RNG"
+For deterministically random numbers, use the random\.SystemRandom() class with a seed upon instantiation\. For non\-deterministically random numbers, instantiate the same class without a seed\. This will utilize the os\.urandom() function, which is the most random function provided by a given operating system and is considered cryptographically secure\. Once instantiated, randrange, randint, random, and other functions from the random module can be called in a cryptographically secure manner\.
+.
+.SH "Special\-Garbanzo"
+An assortment of useful custom commands for macOS command line\. Adapted from mattraimondi/special\-garbanzo
+.
+.SS "ip"
+ip simply lists your local ip address and your external ip address
+.
+.SS "quit"
+quit quits applications for you\. Just run the program, type in the application\'s name, and then using applescript, quit will quit the app\.
+.
+.SS "lstrash"
+lstrash gives you the contents of \fB~/library/Mobile Documents/com~apple~CloudDocs/\.trash\fR and \fB~/\.trash\fR
+.
+.P
+Typing \'lstrash empty\' empties both of those locations (deletes all files in those locations, including the actual folders themselves)\.
+.
+.P
+\fBWARNING!\fR This process is \fBnot\fR undoable, so don\'t type \fBlstrash empty\fR unless you\'re sure!
+.
+.P
+\fBI am not liable for any information lost due to this function\. Use at your own risk\.\fR
+.
+.SS "weather"
+Just type "weather" and the location, plus any clarifiers (ex\. austin+tx), to get the weather from wttr\.in\.
+.
+.SS "space"
+The space command prints 3 new lines to help seperate data and such\. Useless, yet useful\.
+.
+.SS "dockspace"
+dockspace creates a transparent space on your dock for organization\.
+.
+.SS "brewinstall"
+This installes homebrew on the system\. \fBDo not execute this function if you already have homebrew installed!\fR If you install this script using homebrew, then this function is useless to you\. This function is only useful on systems where homebrew is not installed, but the user does not want to go www\.brew\.sh to install it\.
+.
+.SS "airportinstall"
+Creates a symbolic link of the Airport utility in \fB/usr/local/bin\fR so that you can easily execute it from the command line\. The symbolic link will be called \fBairport\fR and can be invoked at the command line like so: \fB$ airport \-s SSID BSSID RSSI CHANNEL HT CC SECURITY (auth/unicast/group) Network 98:fc:11:fd:ba:24 \-89 2 Y \-\- WPA2(PSK/AES/AES)\fR
