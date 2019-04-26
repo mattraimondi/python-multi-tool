@@ -18,6 +18,7 @@ volumeVersion = "5.0.0"
 # 2019 Matthew Raimondi
 # www.mattraimondi.com
 # www.github.com/mattraimondi
+# www.github.com/mattraimondi/python-multi-tool
 
 # This script is a multiple usage script.
 # You can change it's function using the variable below or by using the changeFunction option built into the script (recommended).
@@ -26,7 +27,7 @@ volumeVersion = "5.0.0"
 
 funcOptions = "lib colors calc git-status volume piglatin itunes osxterm special-garbanzo"
 USAGE = "calc"
-usageLine = 28 - 1 # line number is shifted down one, because indices start at 0
+usageLine = 30 - 2 # line number is shifted down one, because indices start at 0, and then shifted down one again because this line is above the USAGE line
 changeFunctionHelpText = f"\nPlease pass the function you would like this script to transform to as arugument 2.\nOptions are: {funcOptions}\n\nIf you keep getting this message but are using the script correctly, try running as root.\nRoot permessions are sometimes needed to edit the file depending on its location.\n\nThe current usage is \"{USAGE}\"\n"
 
 # Importable classes in this file:
@@ -75,9 +76,9 @@ from codecs import encode
 from random import SystemRandom
 from math import ceil
 
-rand = SystemRandom()
+rand = SystemRandom() # This is so that deterministic randomization may occur. It uses the SystemRandom() function, which generates numbers based on a seed, which is passed into the function upon instantiation. For non-deterministic random numbers, use the pre-included os.urandom() function, which is the most random function provided by a given operating system. This does not need a seed to be instantiated, and is therefore considered cryptographically secure.
 
-def changeFunction(newFunc):
+def changeFunction(newFunc): # Here is the change function, used to change the use of the program.
     with open(__file__, "r+") as k:
         code = k.read()
         targetLineBefore = code.split('\n')[usageLine]
@@ -91,7 +92,7 @@ def changeFunction(newFunc):
     return f"{targetLineBefore}\n{targetLineAfter}"
     quit()
 
-class operations:
+class operations: # A class for putting down simple operations, to make the calculator portion of this program much simpler to read.
     def add(a, b):
         return a + b
     def subtract(a, b):
@@ -111,6 +112,8 @@ class operations:
         return max(lst, key=data.get)
 
 class mcolors:
+    
+    # This is a class containing color escape codes, used for printing colors on 256-bit color terminals, but has additional codes so as to be compatible with older 16-bit color terminals.
 
     red = "\u001b[38;5;$1m"
     orange = "\u001b[38;5;$208m"
@@ -194,6 +197,9 @@ class cryptography:
     # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     # SOFTWARE.
+    
+    # This is an encryption library written by Fitzgibbons. All of the work contained in this "cryptography class" is his.
+    # www.github.com/fitzgibbons
 
     class SHA:
         #Secure Hash Algorithm 2
@@ -789,7 +795,7 @@ class cryptography:
                 inNum += SHA.SHA512(int((SHA512(e + SHA.SHA512(e)) + e) * rand.random()))
             return SHA.SHA512(inNum)
 
-if __name__ == "__main__" and len(sys.argv) >= 2:
+if __name__ == "__main__" and len(sys.argv) >= 2: # So, here we have the clause that initiates the change function written earlier in the program that was created to manage the changing of use of this large python file.
     if sys.argv[1] == "changeFunction":
         try:
             print(changeFunction(sys.argv[2]))
@@ -799,7 +805,7 @@ if __name__ == "__main__" and len(sys.argv) >= 2:
             print(changeFunctionHelpText)
             quit()
 
-if __name__ == "__main__" and USAGE == "calc":
+if __name__ == "__main__" and USAGE == "calc": # Here begins the calculator portion of the tool. There will not be many comments here, because this portion was designed to be easily read without the need for them.
     
     helper = f"\n\tUsage: {os.path.basename(__file__)} <option>\n\n\tOptions:\n\tbasic\n\tfracdec\n\tfibonacci\n\tinfibonacci\n\tisfibonacci\n\ttemp\n\tgpa\n\tmmmra\n\n\t\u001b[38;5;$208mCalculator Suite by Matthew Raimondi\n\t\u001b[38;5;$39mwww.github.com/mattraimondi{mcolors.reset}\n"
 
@@ -822,7 +828,7 @@ if __name__ == "__main__" and USAGE == "calc":
         exit(0)
 
     if sys.argv[1] == "basic":
-        try:
+        try: # This section is for dealing with fractions, which are a pain to deal with on a CLI.
             if len(sys.argv) == 5:
                 astr = sys.argv[2]
                 o = sys.argv[3]
@@ -832,7 +838,7 @@ if __name__ == "__main__" and USAGE == "calc":
         except Exception as e:
             print(e)
             print(basichelp)
-        try:
+        try: # The operational logic takes place below.
             if o == "+":
                 print(operations.add(a, b))
             elif o == "-":
@@ -849,7 +855,7 @@ if __name__ == "__main__" and USAGE == "calc":
             print(e)
             print(basichelp)
 
-    elif sys.argv[1] == "fracdec":
+    elif sys.argv[1] == "fracdec": # Here we have more confusion, again related to the processing of fractional input.
         try:
             if len(sys.argv) == 5:
                 astr = sys.argv[2]
@@ -873,7 +879,7 @@ if __name__ == "__main__" and USAGE == "calc":
             print(e)
             print(fracdechelp)
 
-    elif sys.argv[1] == "fibonacci":
+    elif sys.argv[1] == "fibonacci": # This prints the fibonacci value of a number.
         def Fib(n):
             a,b = 0,1
             for i in range(n):
@@ -888,7 +894,7 @@ if __name__ == "__main__" and USAGE == "calc":
         else:
             print(fibohelp)
 
-    elif sys.argv[1] == "infibonacci":
+    elif sys.argv[1] == "infibonacci": # This is a confusing block of code, which doesn't make sense really, but is just for repeating the Fibonacci sequence indefinitely. The variable names are purposfully ambiguous.
         try:
             a=1
             b=1
@@ -903,7 +909,7 @@ if __name__ == "__main__" and USAGE == "calc":
         except:
             quit()
 
-    elif sys.argv[1] == "isfibonacci":
+    elif sys.argv[1] == "isfibonacci": # This checks to see if a number occurs in the fibonacci sequence.
         def perf(a):
             p = int(a ** (1 / 2))
             return p*p == a
@@ -922,7 +928,7 @@ if __name__ == "__main__" and USAGE == "calc":
         else:
             print(isfibohelp)
 
-    elif sys.argv[1] == "temp":
+    elif sys.argv[1] == "temp": # For converting temperatures. Check out mattraimondi.com/webdesign/project17
         def cf():
             try:
                 value = float(sys.argv[3])
@@ -949,7 +955,7 @@ if __name__ == "__main__" and USAGE == "calc":
         else:
             print(temphelp)
 
-    elif sys.argv[1] == "gpa":
+    elif sys.argv[1] == "gpa": # A GPA calculator that *actually* works.
         try:
             if len(sys.argv) == 3 and sys.argv[2] in "help -h".split():
                 print(gpahelp)
@@ -976,7 +982,7 @@ if __name__ == "__main__" and USAGE == "calc":
         except Exception as e:
             print(e)
 
-    elif sys.argv[1] == "mmmra":
+    elif sys.argv[1] == "mmmra": # Useful for runnning some small data organization tasks.
         try:
             if sys.argv[2] == "median":
                 nums = list(map(int, input("Numbers: ").split()))
@@ -1006,7 +1012,7 @@ if __name__ == "__main__" and USAGE == "calc":
 
 
 
-if __name__ == "__main__" and USAGE == "colors":
+if __name__ == "__main__" and USAGE == "colors": # This is the most useless program, so you should just ingore this.
 
     colorfile = ""
     alist = ""
@@ -1084,7 +1090,7 @@ if __name__ == "__main__" and USAGE == "colors":
         else:
             mcolors.printbackcolor(int(sys.argv[2]))
 
-if __name__ == "__main__" and USAGE == "git-status":
+if __name__ == "__main__" and USAGE == "git-status": # Something that is useful!
 
     dirs = glob.glob(f"*{os.path.sep}")
     gits = glob.glob("./*/.git")
@@ -1137,7 +1143,7 @@ if __name__ == "__main__" and USAGE == "volume":
         elif len(sys.argv) == 1:
             print(helptext)
 
-if __name__ == "__main__" and USAGE == "piglatin":
+if __name__ == "__main__" and USAGE == "piglatin": # This still doesn't fully work yet...
 
     ending = "ay"
     vowels = ["a","e","i","o","u"]
@@ -1456,7 +1462,7 @@ if __name__ == "__main__" and USAGE == "special-garbanzo":
     else:
         print(garbanzoHelp)
         
-if __name__ == "__main__" and USAGE == "jpy":
+if __name__ == "__main__" and USAGE == "jpy": # This was also written by Fitzgibbons (www.github.com/fitzgibbons). It is for compiling Java, but you should probably just compile it with javac alone.
     argument = 1
     optioncount = 0
     options = []
