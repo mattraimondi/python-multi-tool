@@ -1,6 +1,12 @@
 #! /usr/bin/env python3
 
-# Multi-Tool Python Version 1.1.1
+# Multi-Tool Python Version 1.2.0
+
+# Latest Updates:
+#   - C-Multi-Tool has been deprecated, and has now merged with this script. Yay!
+# Added:
+#   - guessTheNumber (number game)
+#   - mole coverter (part of the Physics/Chemistry/Biology suite coming to calc soon! This will be called PCB)
 
 # Calculator Version 2.2.0
 # Colors Version 2.0.0
@@ -10,12 +16,14 @@
 # Piglatin Version 1.0.0
 # OSXTerm Version 1.0.0
 # Special-Garbanzo Version 1.0.0
+# Numbers Game Version 1.1.0
+# PCB Version 1.0.0
 
 # Version Variables
 calcVersion = "2.2.0"
 volumeVersion = "5.0.0"
 
-# 2019 Matthew Raimondi
+# 2020 Matthew Raimondi
 # www.mattraimondi.com
 # www.github.com/mattraimondi
 # www.github.com/mattraimondi/python-multi-tool
@@ -25,9 +33,9 @@ volumeVersion = "5.0.0"
 # The default setting is "calc".
 # Use the "lib" option if importing this script as a library for another script.
 
-funcOptions = "lib colors calc git-status volume piglatin itunes osxterm special-garbanzo"
+funcOptions = "lib colors calc git-status volume piglatin itunes osxterm special-garbanzo numgame pcb"
 USAGE = "calc"
-usageLine = 30 - 2 # line number is shifted down one, because indices start at 0, and then shifted down one again because this line is above the USAGE line
+usageLine = 38 - 2 # please make sure this is the line number of THIS LINE. Line number is shifted down one, because indices start at 0, and then down one more since the USAGE line is above this line.
 changeFunctionHelpText = f"\nPlease pass the function you would like this script to transform to as arugument 2.\nOptions are: {funcOptions}\n\nIf you keep getting this message but are using the script correctly, try running as root.\nRoot permessions are sometimes needed to edit the file depending on its location.\n\nThe current usage is \"{USAGE}\"\n"
 
 # Importable classes in this file:
@@ -43,7 +51,7 @@ changeFunctionHelpText = f"\nPlease pass the function you would like this script
 
 # MIT License
 #
-# Copyright (c) 2019 Matthew Raimondi
+# Copyright (c) 2020 Matthew Raimondi
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -74,6 +82,7 @@ from decimal import Decimal
 from collections import Counter
 from codecs import encode
 from random import SystemRandom
+from random import randint
 from math import ceil
 
 rand = SystemRandom() # This is so that deterministic randomization may occur. It uses the SystemRandom() function, which generates numbers based on a seed, which is passed into the function upon instantiation. For non-deterministic random numbers, use the pre-included os.urandom() function, which is the most random function provided by a given operating system. This does not need a seed to be instantiated, and is therefore considered cryptographically secure.
@@ -112,7 +121,7 @@ class operations: # A class for putting down simple operations, to make the calc
         return max(lst, key=data.get)
 
 class mcolors:
-    
+
     # This is a class containing color escape codes, used for printing colors on 256-bit color terminals, but has additional codes so as to be compatible with older 16-bit color terminals.
 
     red = "\u001b[38;5;$1m"
@@ -197,7 +206,7 @@ class cryptography:
     # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     # SOFTWARE.
-    
+
     # This is an encryption library written by Fitzgibbons. All of the work contained in this "cryptography class" is his.
     # www.github.com/fitzgibbons
 
@@ -806,12 +815,12 @@ if __name__ == "__main__" and len(sys.argv) >= 2: # So, here we have the clause 
             quit()
 
 if __name__ == "__main__" and USAGE == "calc": # Here begins the calculator portion of the tool. There will not be many comments here, because this portion was designed to be easily read without the need for them.
-    
-    helper = f"\n\tUsage: {os.path.basename(__file__)} <option>\n\n\tOptions:\n\tbasic\n\tfracdec\n\tfibonacci\n\tinfibonacci\n\tisfibonacci\n\ttemp\n\tgpa\n\tmmmra\n\n\t\u001b[38;5;$208mCalculator Suite by Matthew Raimondi\n\t\u001b[38;5;$39mwww.github.com/mattraimondi{mcolors.reset}\n"
 
-    basichelp = f"\n\tUsage: {os.path.basename(__file__)} basic <n> <operation> <n>\n\n\tOperations:\n\t+  for addition\n\t-  for subtraction\n\tx  for multiplication\n\t/  for division\n\txx for power\n\t-x for root\n\n\t\u001b[38;5;$208mCalculator by Matthew Raimondi\n\t\u001b[38;5;$39mwww.github.com/mattraimondi{mcolors.reset}\n"
+    helper = f"\n\tUsage: {os.path.basename(__file__)} <option>\n\n\tOptions:\n\tbasic\n\tfracdec\n\tfibonacci\n\tinfibonacci\n\tisfibonacci\n\ttemp\n\tgpa\n\tmmmra\n\tmoleConverter\n\n\t{mcolors.orange}Calculator Suite by Matthew Raimondi\n\t{mcolors.skyblue}mwww.github.com/mattraimondi{mcolors.reset}\n"
 
-    fracdechelp = f"\n\tUsage: {os.path.basename(__file__)} fracdec <n> <operation> <n>\n\n\tOperations:\n\t. for decimal into fraction (in which case, don\'t put a third number)\n\t/ for fraction into decimal\n\n\t\u001b[38;5;$208mFraction / Decimal Converter by Matthew Raimondi\n\t\u001b[38;5;$39mwww.github.com/mattraimondi{mcolors.reset}\n"
+    basichelp = f"\n\tUsage: {os.path.basename(__file__)} basic <n> <operation> <n>\n\n\tOperations:\n\t+  for addition\n\t-  for subtraction\n\tx  for multiplication\n\t/  for division\n\txx for power\n\t-x for root\n\n\t{mcolors.orange}Calculator by Matthew Raimondi\n\t{mcolors.skyblue}mwww.github.com/mattraimondi{mcolors.reset}\n"
+
+    fracdechelp = f"\n\tUsage: {os.path.basename(__file__)} fracdec <n> <operation> <n>\n\n\tOperations:\n\t. for decimal into fraction (in which case, don\'t put a third number)\n\t/ for fraction into decimal\n\n\t{mcolors.orange}Fraction / Decimal Converter by Matthew Raimondi\n\t{mcolors.skyblue}mwww.github.com/mattraimondi{mcolors.reset}\n"
 
     fibohelp = f"\n\tUsage: {os.path.basename(__file__)} fibonacci <n>\n\t{mcolors.custpink}By Matthew Raimondi\n\twww.github.com/mattraimondi{mcolors.reset}\n"
 
@@ -822,7 +831,7 @@ if __name__ == "__main__" and USAGE == "calc": # Here begins the calculator port
     gpahelp = f"\n\nHelp:\n\tThe GPA program can calculate your GPA.\n\n\t*For AP classes, when asked for your letter grade, you should add AP to the end of the grade.\n\tExample: A+ -> A+AP\n\t\t A -> AAP\n\t\t A- -> A-AP\n\n\n{mcolors.custpink}By Matthew Raimondi\nwww.github.com/mattraimondi{mcolors.reset}\n"
 
     mmmrahelp = f"\n\nHelp:\n\tThe MMMRA program can calculate the Mean, Meadian, Mode, Range, and Average of a set of numbers.\n\nOptions\n\tmedian\n\tmode\n\trange\n\tmean\n\taverage\n\n\n{mcolors.custpink}By Matthew Raimondi\nwww.github.com/mattraimondi{mcolors.reset}\n"
-    
+
     if len(sys.argv) == 1:
         print(helper)
         exit(0)
@@ -1005,12 +1014,11 @@ if __name__ == "__main__" and USAGE == "calc": # Here begins the calculator port
                 print(mmmrahelp)
         except Exception as e:
             print(e)
+
     elif sys.argv[1] == "-v":
         print(calcVersion)
     else:
         print(helper)
-
-
 
 if __name__ == "__main__" and USAGE == "colors": # This is the most useless program, so you should just ingore this.
 
@@ -1163,14 +1171,14 @@ if __name__ == "__main__" and USAGE == "piglatin": # This still doesn't fully wo
                 else:
                     word = word + ending
                     break
-        
+
             return word
-    
+
         quit()
 
     def pigeng(*args):
         alist = list(args)
-        
+
         for word in alist:
             word = word.strip(ending)[::-1]
             for letter in word:
@@ -1179,9 +1187,9 @@ if __name__ == "__main__" and USAGE == "piglatin": # This still doesn't fully wo
                 else:
                     word = word[::-1]
                     break
-            
+
             return word
-        
+
         quit()
 
     if len(sys.argv) == 2:
@@ -1410,7 +1418,7 @@ if __name__ == "__main__" and USAGE == "getappleid":
 
 if __name__ == "__main__" and USAGE == "osxterm":
     termHelp = f"Using this program, (assuming you are using macOS) you can change the theme that terminal.app uses.\n*This does not work for iTerm 2 or the like*\nThe program should be run as follows, including the quotes:\n\n\t{os.path.basename(__file__)} \"homebrew\"\n"
-    
+
     if len(sys.argv) >= 2:
         subprocess.run(f"osascript -e 'tell application \"Terminal\" to set current settings of first window to first settings set whose name is \"{sys.argv[1]}\"'", shell=True)
     else:
@@ -1461,7 +1469,7 @@ if __name__ == "__main__" and USAGE == "special-garbanzo":
             print(garbanzoHelp)
     else:
         print(garbanzoHelp)
-        
+
 if __name__ == "__main__" and USAGE == "jpy": # This was also written by Fitzgibbons (www.github.com/fitzgibbons). It is for compiling Java, but you should probably just compile it with javac alone.
     argument = 1
     optioncount = 0
@@ -1525,3 +1533,68 @@ if __name__ == "__main__" and USAGE == "jpy": # This was also written by Fitzgib
             print("[Deleting class files]")
         os.chdir("..")
         os.system("rm -rf " + dirname)
+
+if __name__ == "__main__" and USAGE == "numgame": # Ported and transpiled from C-Multi-Tool
+    def guessTheNumber(): # This is a simple guess the number game, which is fun to play when you are bored.
+        remainingAttempts = 5
+        mysteryNumber = randint(1,21)
+        times = 0
+
+        print("\nThis is a guessing game.\nA number between 0 and 20 has been randomly generated which you must guess.\n")
+
+        for _ in range(0,4):
+            print(f"\n\nCurrent Attempt: {remainingAttempts}") # Retrieve Number.
+            guessedNumber = int(input("Please type a number from 0-20: ")) # Store Number.
+            if guessedNumber == mysteryNumber:
+                print(f"\nCongratulations! {guessedNumber} is the correct number.\n") # Correct Number.
+                break
+            else:
+                if guessedNumber > mysteryNumber:
+                    print(f"\nYour guess of {guessedNumber} is too high\n") # Too High.
+                else:
+                    print(f"\nYour guess of {guessedNumber} is too low\n") # Too Low.
+
+                times += 1 # Increment
+                remainingAttempts -= 1 # Decrement.
+
+        if remainingAttempts == 0: # When you run out of attempts.
+            print(f"\nThe mystery number is {mysteryNumber}\n")
+
+    guessTheNumber()
+
+if __name__ == "__main__" and USAGE == "pcb": # Ported and transpiled from C-Multi-Tool
+    pcbHelp = f"\n\nOptions are:\n\tmoleConverter\n\n\n{mcolors.custpink}By Matthew Raimondi\nwww.github.com/mattraimondi{mcolors.reset}\n"
+    moleHelp = f"\n\nOptions are:\n\tmolesToGrams\n\tgramsToMoles\n\tmolesToParticles\n\tparticlesToMoles\n\n\n{mcolors.custpink}By Matthew Raimondi\nwww.github.com/mattraimondi{mcolors.reset}\n"
+
+    def moleConverter(): # Helpful for repetitive Chemistry homework.
+        avogadrosNumber = 6.022 * (10 ** 23)
+
+        if len(sys.argv) >= 3: # this needs a try/except clause to catch errors where letters are input instead of numbers -matt 3/9/20
+            if sys.argv[2] == "molesToGrams":
+                molarMass = float(input("Molar Mass: "))
+                moles = float(input("# of Moles: "))
+                output = molarMass * moles
+                print(f"{output}\n")
+            elif sys.argv[2] == "gramsToMoles":
+                molarMass = float(input("Molar Mass: "))
+                grams = float(input("# of Grams: "))
+                output = grams / molarMass
+                print(f"{output}\n")
+            elif sys.argv[2] == "molesToParticles":
+                moles = float(input("# of Moles: "))
+                output = moles * avogadrosNumber
+                print(f"{output}\n")
+            elif sys.argv[2] == "particlesToMoles":
+                particles = float(input("# of Particles times 10 to the 23rd power: "))
+                output = (particles * (10 ** 23)) / avogadrosNumber
+                print(f"{output}\n")
+            else:
+                print(f"{moleHelp}\n")
+        else:
+            print(f"{moleHelp}\n")
+
+    if len(sys.argv) > 1:
+        if sys.argv[1] == "moleConverter":
+            moleConverter()
+    else:
+        print(pcbHelp)
