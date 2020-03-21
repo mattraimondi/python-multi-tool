@@ -19,7 +19,13 @@ $ brew install mattraimondi/formulae/python\-multi\-tool
 This script is a multiple usage script that is controlled by a constant named \fBUSAGE\fR\. This constant can be edited in the script file to change the function of the script\. In addition, a more simple way would be to use the \fBchangeFunction\fR function that is included in the script, which changes the value of the constant\. Because this script is able to edit itself in such a way, if the script is located in a root domain such as \fB/bin\fR, it is necesary to prefix this script with a sudo call to allow the script to edit itself and change the value of \fBUSAGE\fR\. The default value for usage is currently \fBcalc\fR
 .
 .P
-An example using this function follows: \fB$ python3 multi\-tool\.py changeFunction lib USAGE = "calc" USAGE = "lib"\fR
+An example using this function follows: 
+.br
+\fB$ pmt changeFunction lib
+.br
+USAGE = "calc"
+.br
+USAGE = "lib"\fR
 .
 .SS "Calculator"
 .
@@ -59,5 +65,5 @@ Lets you control iTunes, to an extent, from within the macOS command line\. Work
 Now you can translate between English and pig latin using this tool\. \fBWords containing Y as the first vowel are currently not translated to preserve integrity of the message\. Words containing Y as the first consonant are unaffected\.\fR
 .
 .SS "PCB"
-Coming Soon\. Basically, if there is a way to do work faster (yes, this includes homework), then I will use the most efficient method\. If there is no method, I make the method\. So now Physics, Chemistry, and Biology homeworks pass by faster\.
+Coming Soon\. Basically, if there is a way to do work faster (yes, this includes homework), then I will use the most efficient method\. If there is no method, I make the method\. So now Physics, Chemistry, and Biology homeworks pass by faster\.\fR
 .

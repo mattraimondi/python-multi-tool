@@ -13,7 +13,7 @@ This script is a multiple usage script that is controlled by a constant named `U
 
 An example using this function follows:
 ```
-$ python3 multi-tool.py changeFunction lib
+$ pmt changeFunction lib
 USAGE = "calc"
 USAGE = "lib"
 ```
